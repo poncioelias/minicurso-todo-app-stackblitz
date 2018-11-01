@@ -1,43 +1,50 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
+import axios from 'axios';
 import './styles/style.scss';
+import { API_URL, USERNAME } from './configs.js';
 
 class App extends Component {
   state = {
-    tarefas: [
-      {
-        id: 1,
-        descricao: 'Aprender React'
-      },
-      {
-        id: 2,
-        descricao: 'Comprar leite'
-      },
-      {
-        id: 3,
-        descricao: 'Comprar arroz'
-      }
-    ],
+    tarefas: []
+  }
+
+  //lifecycle que executa quando o componente esta pronto
+  componentDidMount(){
+    //vamos buscar as tarefas na api
+    this.buscaTarefas()
+      .then(tarefas => this.setState({
+        //isso eh o mesmo que fazer tarefas: tarefas
+        tarefas
+      }));
+  }
+
+  buscaTarefas = async () => {
+    try {
+      const response = await axios.get(`${API_URL}/${USERNAME}/tarefas`);
+      //dentro do response temos um objeto data, e dentro dele um objeto tarefas
+      return response.data.tarefas;
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   render() {
+    //eh uma boa pratica puxar aqui o que vamos usar
+    const tarefas = this.state.tarefas;
+    //tambem pode ser escrito como const {tarefas} = this.state;
 
     return (
       <div className="app container">
-        <h1 className="titulo">Bem-vindo!</h1>
-
-        <div className="infos">
-          <h2>Espero que você curta esse minicurso e aprenda um pouco da maravilha que é o React! 🔥</h2>
-
-          <div className="links">
-            <a href="https://stackblitz.com/edit/react-minicurso-final">Código final no StackBlitz</a>
-            <a href="https://github.com/roniemeque/minicurso-todo-app-stackblitz">Código com etapas no GitHub</a>
-            <a href="https://github.com/roniemeque/minicurso-todo-api">Código da API Laravel no GitHub</a>
-            <a href="https://roniemeque.github.io/react-minicurso/">Slides</a>
-            <a href="mailto:roniemeque@icloud.com">roniemeque@icloud.com</a>
-          </div>
+        <div className="tarefas">
+          <h1 className="titulo">Minhas tarefas</h1>
+          
+          <ul className="lista-tarefas">
+            {!!tarefas.length 
+              ? tarefas.map(tarefa => <li className="tarefa">{tarefa.descricao}</li>) 
+              : <li>Sem tarefas</li>}
+          </ul>
         </div>
-        
       </div>
     );
   }

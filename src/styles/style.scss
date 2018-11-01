@@ -4,83 +4,10 @@ h1, p {
   font-family: Lato;
 }
 
-.infos{
-  padding: 3rem;
-}
-
-.links{
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-}
-
 .app{
   padding: 2rem 0;
-  text-align: center;
 }
 
 .titulo{
   font-size: 2rem;
-  text-align: center;
-}
-
-.tarefas{
-  text-align: center;
-}
-
-.lista-tarefas{
-  padding: 2rem 1rem;
-  max-width: 40rem;
-  margin: 0 auto;
-}
-
-.form{
-  text-align: center;
-  max-width: 40rem;
-  padding: 2rem 1rem;
-  margin: 0 auto;
-}
-
-.input{
-  box-shadow: none;
-}
-
-.input-nova-tarefa{
-  margin: 1rem auto;
-}
-
-.input-busca{
-  font-size: 12px;
-  margin-bottom: 0.5rem;
-  border: none;
-  outline: none;
-}
-
-.tarefa{
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.5rem 1rem;
-  border-radius: 10px;
-  box-shadow: 0 0 20px rgba(204,217,253,.5);
-  &:not(:first-of-type){
-    margin-top: 1rem;
-  }
-  &__descricao{
-    margin-right: 1rem;
-  }
-  .button{
-    font-size: 13px;
-    border: none;
-  }
-}
-
-.button-arquivadas{
-  margin: 0 auto;
-  font-size: 12px;
-  border: none;
-  transition: all .2s;
-  &:hover{
-    color: salmon;
-  }
 }
