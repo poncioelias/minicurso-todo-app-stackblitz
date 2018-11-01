@@ -11,3 +11,36 @@ h1, p {
 .titulo{
   font-size: 2rem;
 }
+
+.lista-tarefas{
+  padding: 2rem 1rem;
+}
+
+.form{
+  text-align: center;
+}
+
+.input-nova-tarefa{
+  margin: 1rem auto;
+  max-width: 90%;
+}
+
+.tarefa{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 30rem;
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(204,217,253,.5);
+  &:not(:first-of-type){
+    margin-top: 1rem;
+  }
+  &__descricao{
+    margin-right: 1rem;
+  }
+  .button{
+    font-size: 13px;
+    border: none;
+  }
+}
