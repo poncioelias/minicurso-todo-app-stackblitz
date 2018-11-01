@@ -6,30 +6,39 @@ h1, p {
 
 .app{
   padding: 2rem 0;
+  text-align: center;
 }
 
 .titulo{
   font-size: 2rem;
+  text-align: center;
+}
+
+.tarefas{
+  text-align: center;
 }
 
 .lista-tarefas{
   padding: 2rem 1rem;
+  max-width: 30rem;
+  margin: 0 auto;
 }
 
 .form{
   text-align: center;
+  max-width: 30rem;
+  padding: 2rem 1rem;
+  margin: 0 auto;
 }
 
 .input-nova-tarefa{
   margin: 1rem auto;
-  max-width: 90%;
 }
 
 .tarefa{
   display: flex;
   align-items: center;
   justify-content: space-between;
-  max-width: 30rem;
   padding: 0.5rem 1rem;
   border-radius: 10px;
   box-shadow: 0 0 20px rgba(204,217,253,.5);
@@ -42,5 +51,15 @@ h1, p {
   .button{
     font-size: 13px;
     border: none;
+  }
+}
+
+.button-arquivadas{
+  margin: 0 auto;
+  font-size: 12px;
+  border: none;
+  transition: all .2s;
+  &:hover{
+    color: salmon;
   }
 }

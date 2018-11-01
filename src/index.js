@@ -7,7 +7,8 @@ import { API_URL, USERNAME } from './configs.js';
 class App extends Component {
   state = {
     tarefas: [],
-    novaTarefa: ''
+    novaTarefa: '',
+    mostrarArquivadas: false
   }
 
   //lifecycle que executa quando o componente esta pronto
@@ -92,24 +93,34 @@ class App extends Component {
       }));
   }
 
+  toggleMostrarArquivadas = () => {
+    const mostrarArquivadas = this.state.mostrarArquivadas;
+    this.setState({
+      mostrarArquivadas: !mostrarArquivadas
+    })
+  }
+
   render() {
     //eh uma boa pratica puxar aqui o que vamos usar
     const tarefas = this.state.tarefas;
     const novaTarefa = this.state.novaTarefa;
     //tambem pode ser escrito como const {tarefas} = this.state;
+    const mostrarArquivadas = this.state.mostrarArquivadas;
 
-    const naoCompletas = tarefas.filter(tarefa => !tarefa.completa);
-    const completas = tarefas.filter(tarefa => tarefa.completa);
+    const tarefasFiltradas = mostrarArquivadas ? tarefas : tarefas.filter(tarefa => !tarefa.arquivada);
+    const naoCompletas = tarefasFiltradas.filter(tarefa => !tarefa.completa);
+    const completas = tarefasFiltradas.filter(tarefa => tarefa.completa);
 
     return (
       <div className="app container">
-        <div className="tarefas">
-          <h1 className="titulo">Minhas tarefas</h1>
+        <h1 className="titulo">Minhas tarefas</h1>
 
-          <form className="form" onSubmit={this.onAdicionarSubmit}>
-            <input type="text" className="input input-nova-tarefa" value={novaTarefa} placeholder="Nova tarefa" onChange={this.handleInput} />
-          </form>
-          
+        <form className="form" onSubmit={this.onAdicionarSubmit}>
+          <input type="text" className="input input-nova-tarefa" value={novaTarefa} placeholder="Nova tarefa" onChange={this.handleInput} />
+        </form>
+        
+        <div className="tarefas">
+          <h2 className="titulo-2">Pendentes</h2>
           <ul className="lista-tarefas">
             {!!naoCompletas.length 
               ? naoCompletas.map(tarefa => 
@@ -123,7 +134,9 @@ class App extends Component {
               ) 
               : <li>Sem tarefas</li>}
           </ul>
+        </div>
 
+        <div className="tarefas">
           <h2 className="titulo-2">Concluídas</h2>
           <ul className="lista-tarefas">
             {!!completas.length 
@@ -139,6 +152,9 @@ class App extends Component {
               : <li>Sem tarefas</li>}
           </ul>
         </div>
+
+        <button onClick={this.toggleMostrarArquivadas} className="button button-arquivadas">{mostrarArquivadas ? 'Esconder arquivadas' : 'Mostrar arquivadas'}</button>
+        
       </div>
     );
   }
