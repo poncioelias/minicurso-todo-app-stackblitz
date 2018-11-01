@@ -3,6 +3,7 @@ import { render } from 'react-dom';
 import axios from 'axios';
 import './styles/style.scss';
 import { API_URL, USERNAME } from './configs.js';
+import Lista from './componentes/Lista';
 
 class App extends Component {
   state = {
@@ -121,36 +122,12 @@ class App extends Component {
         
         <div className="tarefas">
           <h2 className="titulo-2">Pendentes</h2>
-          <ul className="lista-tarefas">
-            {!!naoCompletas.length 
-              ? naoCompletas.map(tarefa => 
-                <li key={tarefa.id} className="tarefa">
-                  <span className="tarefa__descricao">{tarefa.descricao}</span>
-                  <div className="tarefa__botoes">
-                    <button className="button" onClick={() => this.toggleConcluida(tarefa.id)}>Feito ✅</button>
-                    <button className="button" onClick={() => this.toggleArquivada(tarefa.id)}>🔥</button>
-                  </div>
-                </li>
-              ) 
-              : <li>Sem tarefas</li>}
-          </ul>
+          <Lista tarefas={naoCompletas} toggleConcluida={this.toggleConcluida} toggleArquivada={this.toggleArquivada} />
         </div>
 
         <div className="tarefas">
           <h2 className="titulo-2">Concluídas</h2>
-          <ul className="lista-tarefas">
-            {!!completas.length 
-              ? completas.map(tarefa => 
-                <li key={tarefa.id} className="tarefa">
-                  <span className="tarefa__descricao">{tarefa.descricao}</span>
-                  <div className="tarefa__botoes">
-                    <button className="button" onClick={() => this.toggleConcluida(tarefa.id)}>Não concluída 🧐</button>
-                    <button className="button" onClick={() => this.toggleArquivada(tarefa.id)}>🔥</button>
-                  </div>
-                </li>
-              ) 
-              : <li>Sem tarefas</li>}
-          </ul>
+          <Lista tarefas={completas} toggleConcluida={this.toggleConcluida} toggleArquivada={this.toggleArquivada} />
         </div>
 
         <button onClick={this.toggleMostrarArquivadas} className="button button-arquivadas">{mostrarArquivadas ? 'Esconder arquivadas' : 'Mostrar arquivadas'}</button>
