@@ -19,7 +19,7 @@ class Lista extends Component {
   render() {
     //usando destructuring
     const {filtro} = this.state;
-    const {tarefas, toggleArquivada, toggleConcluida} = this.props;
+    const {tarefas, toggleArquivada, toggleConcluida, togglePrioridade} = this.props;
 
     //ao inves de usar os lowerCase eh possivel usar regex
     const tarefasFiltradas = filtro ? tarefas.filter(({descricao}) => descricao.toLowerCase().includes(filtro.toLowerCase())) : tarefas;
@@ -29,7 +29,7 @@ class Lista extends Component {
         <input type="text" className="input input-busca" value={filtro} placeholder="Filtrar" onChange={this.handleInput} />
         {!!tarefasFiltradas.length 
           ? tarefasFiltradas.map(tarefa => 
-            <Tarefa tarefa={tarefa} toggleConcluida={toggleConcluida} toggleArquivada={toggleArquivada} />
+            <Tarefa tarefa={tarefa} togglePrioridade={togglePrioridade} toggleConcluida={toggleConcluida} toggleArquivada={toggleArquivada} />
           ) 
           : <li>Sem tarefas</li>}
       </ul>
@@ -40,7 +40,8 @@ class Lista extends Component {
 Lista.propTypes = {
   tarefas: PropTypes.array.isRequired,
   toggleConcluida: PropTypes.func.isRequired,
-  toggleArquivada: PropTypes.func.isRequired
+  toggleArquivada: PropTypes.func.isRequired,
+  togglePrioridade: PropTypes.func.isRequired
 }
 
 export default Lista;

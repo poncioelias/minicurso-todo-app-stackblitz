@@ -60,6 +60,14 @@ class App extends Component {
       }));
   }
 
+  togglePrioridade = id => {
+    this.alteraTarefa(id, 'prioridade')
+      //alterar as tarefas retorna a lista novamente
+      .then(tarefas => this.setState({
+        tarefas
+      }));
+  }
+
   criaNovaTarefa = async descricao => {
     try {
       const response = await axios.post(`${API_URL}/${USERNAME}/tarefas`, {
@@ -109,8 +117,9 @@ class App extends Component {
     const mostrarArquivadas = this.state.mostrarArquivadas;
 
     const tarefasFiltradas = mostrarArquivadas ? tarefas : tarefas.filter(tarefa => !tarefa.arquivada);
-    const naoCompletas = tarefasFiltradas.filter(tarefa => !tarefa.completa);
-    const completas = tarefasFiltradas.filter(tarefa => tarefa.completa);
+    const tarefasOrdenadas = tarefasFiltradas.sort((tarefaA, tarefaB) => tarefaA.prioridade > tarefaB.prioridade ? -1 : 1);
+    const naoCompletas = tarefasOrdenadas.filter(tarefa => !tarefa.completa);
+    const completas = tarefasOrdenadas.filter(tarefa => tarefa.completa);
 
     return (
       <div className="app container">
@@ -122,12 +131,12 @@ class App extends Component {
         
         <div className="tarefas">
           <h2 className="titulo-2">Pendentes</h2>
-          <Lista tarefas={naoCompletas} toggleConcluida={this.toggleConcluida} toggleArquivada={this.toggleArquivada} />
+          <Lista tarefas={naoCompletas} togglePrioridade={this.togglePrioridade} toggleConcluida={this.toggleConcluida} toggleArquivada={this.toggleArquivada} />
         </div>
 
         <div className="tarefas">
           <h2 className="titulo-2">Concluídas</h2>
-          <Lista tarefas={completas} toggleConcluida={this.toggleConcluida} toggleArquivada={this.toggleArquivada} />
+          <Lista tarefas={completas} togglePrioridade={this.togglePrioridade} toggleConcluida={this.toggleConcluida} toggleArquivada={this.toggleArquivada} />
         </div>
 
         <button onClick={this.toggleMostrarArquivadas} className="button button-arquivadas">{mostrarArquivadas ? 'Esconder arquivadas' : 'Mostrar arquivadas'}</button>
