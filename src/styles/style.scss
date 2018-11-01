@@ -31,8 +31,19 @@ h1, p {
   margin: 0 auto;
 }
 
+.input{
+  box-shadow: none;
+}
+
 .input-nova-tarefa{
   margin: 1rem auto;
+}
+
+.input-busca{
+  font-size: 12px;
+  margin-bottom: 0.5rem;
+  border: none;
+  outline: none;
 }
 
 .tarefa{
